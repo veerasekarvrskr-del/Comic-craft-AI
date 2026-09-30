@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ComicCraft - Create Your Comic</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: url("/static/images/background.jpg") center / cover no-repeat fixed;
+    }
+    .card {
+      width: 380px; max-width: 92%; background: #fff; padding: 24px 28px; margin: 24px 0;
+      border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.28);
+    }
+    h1 { font-size: 20px; text-align: center; margin: 0 0 16px; }
+    label { display: block; font-size: 12px; font-weight: 600; color: #333; margin: 12px 0 4px; }
+    textarea, input, select {
+      width: 100%; padding: 9px 10px; font-size: 14px; border: 1px solid #ccc;
+      border-radius: 6px; background: #f6f8fb; font-family: inherit;
+    }
+    textarea { min-height: 70px; resize: vertical; }
+    button {
+      width: 100%; margin-top: 18px; padding: 11px; border: 0; border-radius: 6px;
+      background: #0b63ce; color: #fff; font-size: 15px; font-weight: 600; cursor: pointer;
+      transition: background .2s;
+    }
+    button:hover { background: #084b9c; }
+    button:disabled { background: #7a9cc6; cursor: wait; }
+    #status { display: none; margin-top: 12px; font-size: 13px; text-align: center; color: #444; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>&#9999;&#65039; Create Your Comic</h1>
+    <form id="comic-form" action="/generate" method="post">
+      <label for="prompt">Story Prompt</label>
+      <textarea id="prompt" name="prompt" required
+                placeholder="A brave fox exploring an enchanted forest"></textarea>
+
+      <label for="character_name">Main Character Name</label>
+      <input id="character_name" name="character_name" type="text" placeholder="Finn" required>
+
+      <label for="setting">Setting</label>
+      <select id="setting" name="setting" required>
+        <option>school</option><option selected>forest</option><option>space</option><option>city</option>
+      </select>
+
+      <label for="tone">Story Tone</label>
+      <select id="tone" name="tone" required>
+        <option>light-hearted</option><option selected>dramatic</option><option>poetic</option><option>funny</option>
+      </select>
+
+      <label for="style">Art Style</label>
+      <select id="style" name="style" required>
+        <option selected>anime</option><option>pixel art</option><option>comic book</option><option>realistic</option>
+      </select>
+
+      <button type="submit" id="submit-btn">Generate Comic</button>
+      <div id="status">Creating your comic&hellip; this can take a few minutes. Please keep this page open.</div>
+    </form>
+  </div>
+  <script>
+    document.getElementById("comic-form").addEventListener("submit", function () {
+      var btn = document.getElementById("submit-btn");
+      btn.disabled = true; btn.textContent = "Generating...";
+      document.getElementById("status").style.display = "block";
+    });
+  </script>
+</body>
+</html>
